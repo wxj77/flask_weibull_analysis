@@ -9,17 +9,22 @@ debug = True
 import os
 import sys
 import re
+import numpy as np
+import pandas as pd
 from flask import Flask
 from flask import render_template
 from flask import Response
+from flask import jsonify
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from pkg_resources import resource_filename
+
+import utils.weibull as weibull
+
 root_dir_path = resource_filename(__name__, '/')
 image_dir_path = resource_filename(__name__, '/image')
 
 print('name:', __name__)
-print('name:', __file__)
 print('root dir path is:', root_dir_path)
 print('image dir path is:', image_dir_path)
 
@@ -51,6 +56,23 @@ def api_render(name):
     filename = "api.html"
     content = {
         "title":name
+    }
+    return render_template(filename, content=content)
+
+# prepare data 
+filename = resource_filename(__name__, '/data/data_sim.csv')
+df = pd.read_csv(filename)
+threshold = 3000
+failures = list(df.loc[df['right_censored']==1, 'failures'])
+right_censored = list(df.loc[df['right_censored']==0, 'failures'])
+
+@app.route('/weibull', methods=['GET','POST'])
+def app_weibull():
+    content = weibull.process_weibull(failures=failures, right_censored=right_censored, CI = .95, t = np.linspace(100,5000,101), prefix='test_')
+    filename = "weibull.html"
+    content = {
+    "head": "Weibull plots",
+    "val": ""
     }
     return render_template(filename, content=content)
 
