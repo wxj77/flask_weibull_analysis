@@ -157,15 +157,8 @@ class Weibull2PLikelihood:
         return (x/alpha)**(beta) 
     
     def _joint_weibull(self, alpha, beta, *data):
-        res = 1
-        #print(data)
-        for ii in data[0]:
-            res *= self._weibull_pdf(alpha, beta, ii)
-        for ii in data[1]:
-            res *= self._weibull_sf(alpha, beta, ii)
-        return res
-        # usage: 
-        # np.log(joint_weibull(alpha, beta, failures, right_censored))
+        res = np.prod(self._weibull_pdf(alpha, beta, data[0])) \
+            * np.prod(self._weibull_sf(alpha, beta, data[1]))
 
     def _joint_loglik_weibull(self, alpha, beta, *data):
         res = np.sum(np.log(self._weibull_pdf(alpha, beta, data[0]))) \

@@ -34,6 +34,7 @@ if debug:
     print(os.path.join(root_dir_path, 'image') )
 
 app = Flask(__name__, template_folder='public', static_folder='static')
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config["DEBUG"] = True # allow auto reload after code changed
 
 
@@ -97,7 +98,7 @@ def app_weibull():
         failures = json_data['failures']
         right_censored = json_data.get('right_censored', [])
         head = "Weibull plots"
-        t_min = np.min([np.min(failures), 0,]) + 1.e-5
+        t_min = np.max([np.min(failures), 0,]) + 1.e-5
         t_max = np.max(failures) * 2.
         if len(right_censored)>0:
             t_max = np.max([t_max, np.max(right_censored) * 2.])
@@ -110,5 +111,14 @@ def app_weibull():
         }
         return render_template(filename, content=content)
 
+# No caching at all for API endpoints.
+@app.after_request
+def add_header(response):
+    # response.cache_control.no_store = True
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-evalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
+
 if __name__=="__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=3000)
