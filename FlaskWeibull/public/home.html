@@ -1,5 +1,13 @@
 {% include "./partials/header.html"%}
 <h1>Home</h1>
-<p>{{content['head']}}</p>
-<p>{{content['val']}}</p>
+<p>Input data:</p>
+
+<form action="/weibull" method="post">
+    <label for="failures">failures:</label><br>
+    <input type="text" id="failures" name="failures"><br>
+    <label for="right_censored">right censored:</label><br>
+    <input type="text" id="right_censored" name="right_censored"><br>
+    <input type="submit" value="Submit">
+</form>
+
 {% include "./partials/footer.html"%}

@@ -1,33 +1,25 @@
 {% include "./partials/header.html"%}
 
-    <div id="main">
-<h1>Home</h1>
-<p>{{content['head']}}</p>
-<p>{{content['val']}}</p>
+<div id="main">
+ <h1>Weibull Analysis</h1>
+  <p>{{content['head']}}</p>
+  <p>{{content['val']}}</p>
 <div>
-    <body>
-        <img src="{{url_for('static', filename='/image/test_probability_plot.png')}}" alt="Image Placeholder" >
-    </body>
+  <img src="{{url_for('static', filename='/image/test_probability_plot.png')}}" alt="{{url_for('static', filename='/image/ex_probability_plot.png')}}" >
 </div>
 
 <div>
-    <body>
-        <img src="{{url_for('static', filename='/image/test_profile.png')}}" alt="Image Placeholder" >
-    </body>
+ <img src="{{url_for('static', filename='/image/test_profile.png')}}" alt="{{url_for('static', filename='/image/ex_profile.png')}}" >
 </div>
 
 <div>
-    <body>
-        <img src="{{url_for('static', filename='test_HF_get_median_upper_lower_bound_from_profile.png')}}" alt="Image Placeholder" >
-    </body>
+ <img src="{{url_for('static', filename='/image/test_HF_get_median_upper_lower_bound_from_profile.png')}}" alt="{{url_for('static', filename='/image/ex_HF_get_median_upper_lower_bound_from_profile.png')}}" >
 </div>
 
 <div>
-    <body>
-        <img src="{{url_for('static', filename='test_CHF_get_median_upper_lower_bound_from_profile.png')}}" alt="Image Placeholder" >
-    </body>
+ <img src="{{url_for('static', filename='/image/test_CHF_get_median_upper_lower_bound_from_profile.png')}}" alt="{{url_for('static', filename='/image/ex_CHF_get_median_upper_lower_bound_from_profile.png')}}" >
 </div>
-</div>
+
 </div>
 
 {% include "./partials/footer.html"%}

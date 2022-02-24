@@ -345,8 +345,8 @@ def process_weibull(failures, right_censored, CI: float = 0.99, t = np.linspace(
     # example create a Weibull2PLikelihood with data
     w = Weibull2PLikelihood(failures = failures, right_censored = right_censored)
 
-    # fit a Weibull with CI=.99
-    w._fit_weibull_2P(show_probability_plot=False, print_results=False, CI=CI,)
+    # fit a Weibull with CI=
+    w._fit_weibull_2P(show_probability_plot=False, print_results=False, CI=.99,)
 
     # get alpha beta profile from likelihood functions, with a 100x100 grid with CI
     v_alpha, v_beta, v_prob, d_alpha, d_beta = w._get_profile(num = 100)
