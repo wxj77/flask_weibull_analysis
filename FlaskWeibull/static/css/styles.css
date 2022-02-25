@@ -12,7 +12,7 @@
     letter-spacing: 5px;
 }
 .navbar-nav  li a:hover {
-    color: #1a119c; /*#1abc9c*/
+    color: #1a119c !important; /*#1abc9c*/
 }
 
 .footer-padding {
